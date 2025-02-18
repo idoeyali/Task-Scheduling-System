@@ -32,28 +32,32 @@ int UserInputHandler::getLevelFromUser()
 {
     std::unordered_map<std::string, int> levelsMap = {{"low",    0},
                                                       {"medium", 1},
-                                                      {
-                                                       "high",   2}};
+                                                      {"high",   2}};
+
     std::string level;
     std::cin >> level;
     while (levelsMap.find(level) == levelsMap.end())
     {
-        std::cout << "This level should be low/medium/high. Please enter "
-                     "level again: ";
+        std::cout
+                << "This level should be low/medium/high. Please enter level again: ";
         std::cin >> level;
     }
     return levelsMap[level];
 }
 
+
 std::string UserInputHandler::getDetailsFromUser()
 {
+
     std::string input;
-    std::cin >> input;
+    std::cin.ignore();
+    std::getline(std::cin, input);
+
     while (input.empty())
     {
         std::cout
                 << "The input should contain at least 1 character. Please enter input again: ";
-        std::cin >> input;
+        std::getline(std::cin, input);
     }
     return input;
 }
@@ -61,15 +65,49 @@ std::string UserInputHandler::getDetailsFromUser()
 std::vector<SubTask> UserInputHandler::getSubTaskSet()
 {
     std::vector<SubTask> tasks;
-    std::string input = "temp";
-    int count = 0;
-    while (input != "!")
+    std::cin.ignore();
+    while (true)
     {
-        std::cout << "Enter the details for the " << count << " sub-task (type"
-                                                              " '!' to stop)\n";
-        std::cin >> input;
+        std::cout << "Enter the details for sub-task " << tasks.size() << " (type '!' to stop)\n";
+
+        std::string input;
+
+        std::getline(std::cin, input);
+        if (input == "!")
+        {
+            break;
+        }
+
         tasks.emplace_back(input);
-        count++;
     }
     return tasks;
+}
+
+
+bool UserInputHandler::getRecurring()
+{
+    std::cout << "This task is recurring? Enter Y/N.: ";
+    std::string input;
+    std::cin >> input;
+    while (input != "Y" && input != "N")
+    {
+        std::cout << "Enter Y/N. Please enter input again: ";
+        std::cin >> input;
+    }
+    if(input == "Y"){
+        return true;
+    }
+    return false;
+}
+
+bool UserInputHandler::getJobType()
+{
+    std::string input;
+    std::cin >> input;
+    while (input != "project" && input != "simple-task")
+    {
+        std::cout << "Choose project/simple-task. Please enter input again: ";
+        std::cin >> input;
+    }
+    return true ? input == "project" : false;
 }

@@ -26,12 +26,15 @@ void Project::updateProgress(int taskIndex)
 
 double Project::getProgress() const
 {
+    if (subTasks.empty()){
+        return 1;
+    }
     return completedTasks / (double) subTasks.size();
 }
 
-void Project::addSubTask(const SubTask &newSubTask, int taskIndex)
+void Project::addSubTask(const SubTask &newSubTask)
 {
-    subTasks.insert(subTasks.begin() + taskIndex, newSubTask);
+    subTasks.push_back(newSubTask);
 }
 
 void Project::printProgress()

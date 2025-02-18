@@ -1,8 +1,7 @@
 #include "Project.hpp"
 
-Project::Project(int id, const std::string title, int difficulty, const
-std::string
-&information, int priority, const std::vector<SubTask> &tasks) :
+Project::Project(int id, const std::string &title, int difficulty, const
+std::string &information, int priority, const std::vector<SubTask> &tasks) :
         Job(id, title, difficulty, information, priority)
 {
     subTasks = tasks;
@@ -41,9 +40,11 @@ void Project::printProgress()
               std::endl;
     std::cout << getProgress() * 100 << "% of the project tasks completed:" <<
               std::endl;
-    for(int i = 0; i<subTasks.size();i++){
+    for (int i = 0; i < subTasks.size(); i++)
+    {
         std::cout << "Sub Task " << i << " --- ";
-        if (!subTasks[i].isComplete()){
+        if (!subTasks[i].isComplete())
+        {
             std::cout << "in";
         }
         std::cout << "complete" << std::endl;

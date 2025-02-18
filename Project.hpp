@@ -13,8 +13,13 @@ private:
     std::vector<SubTask> subTasks;
     int completedTasks;
 public:
-    Project(int id, const std::string title, int difficulty, const std::string
+    Project(int id, const std::string &title, int difficulty, const std::string
     &information, int priority, const std::vector<SubTask> &tasks);
+
+    Project(int id, const std::string &title, int difficulty, const std::string
+    &information, int priority) : Job(id, title, difficulty, information,
+                                      priority), completedTasks(0)
+    {}
 
     void addSubTask(const SubTask &newSubTask, int taskIndex);
 

@@ -1,34 +1,25 @@
 #include "iostream"
-#include "Task.hpp"
+#include "algorithm"
+#include "Job.hpp"
+#include "vector"
+#define MOST_COMPLETED 0.75
+#define HALF_COMPLETED 0.5
 
 #ifndef TASKSCHEDULINGSYSTEM_SIMPLETASK_HPP
 #define TASKSCHEDULINGSYSTEM_SIMPLETASK_HPP
 
-class SimpleClass : public Task
+class SimpleTask : public Job
 {
 private:
-    int priority;
     bool recurring;
-    int progress;
 
 public:
-    SimpleClass(int id, int difficulty,
-                const std::string &information, int priority,
-                const std::string &information1,
-                bool isRecurring) : Task(id, difficulty,
-                                         information),
-                                    priority(priority),
-                                    recurring(isRecurring),
-                                    progress(0)
+    SimpleTask(int id, const std::string &title, int difficulty, const
+    std::string
+    &information, int priority, bool isRecurring) :
+            Job(id, title, difficulty, information, priority),
+            recurring(isRecurring)
     {}
-
-    int getPriority() const
-    { return priority; }
-
-    void changePriority(int newPriority)
-    {
-        priority = newPriority;
-    }
 
     bool isRecurring() const
     {
@@ -40,15 +31,11 @@ public:
         recurring = isRecurring;
     }
 
-    int getProgress() const
-    {
-        return progress;
-    }
+    void printProgress() override;
 
-    void updateProgress(int completedPercentage) override
-    {
-        progress = completedPercentage;
-    }
+    void updateProgress(int completedPercentage) override;
+
+    int getDifficulty() const override;
 };
 
 #endif //TASKSCHEDULINGSYSTEM_SIMPLETASK_HPP
